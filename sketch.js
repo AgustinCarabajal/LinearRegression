@@ -21,7 +21,7 @@ function draw() {
   }
 
   if (data.length > 1) {
-    linearRegression()
+    gradientDescent()
     drawLine()
   }
   
@@ -53,28 +53,15 @@ function mousePressed() {
   data.push(point)
 }
 
-function linearRegression() {
-  let xsum = 0
-  let ysum = 0
+function gradientDescent() {
+  let learningRate = 0.05
 
-  for(let i = 0; i < data.length; i++) {
-    xsum += data[i].x
-    ysum += data[i].y
-  }
-
-  let xmean = xsum / data.length
-  let ymean = ysum / data.length
-
-  let numerator = 0
-  let denominator = 0
-
-  for(let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     let x = data[i].x
     let y = data[i].y
-    numerator += (x - xmean) * (y - ymean)
-    denominator += (x - xmean) * (x - xmean)
+    let guess = m * x + b
+    let error = y - guess
+    m = m + (error * x) * learningRate
+    b = b + error * learningRate
   }
-
-  m = numerator / denominator
-  b = ymean - m * xmean
 }

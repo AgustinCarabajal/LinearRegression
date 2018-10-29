@@ -1,2 +1,2 @@
 # LinearRegression
-Linear Regression with Ordinary Least Squares
+Linear Regression with Gradient Descent
